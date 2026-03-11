@@ -1,14 +1,17 @@
+version: '3.8'
+
 services:
   app:
     build:
       context: .
       dockerfile: docker/php/Dockerfile
     container_name: rareCare_app
-    working_dir: /var/www
     volumes:
       - ./src:/var/www
     depends_on:
       - db
+    expose:
+      - "9000"
 
   web:
     image: nginx:alpine
@@ -24,7 +27,6 @@ services:
   db:
     image: mysql:8.0
     container_name: rareCare_db
-    restart: unless-stopped
     environment:
       MYSQL_DATABASE: rareCare
       MYSQL_ROOT_PASSWORD: root

@@ -12,6 +12,8 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     libzip-dev \
+    librabbitmq-dev \
+    libssl-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
         gd \
@@ -21,6 +23,9 @@ RUN apt-get update && apt-get install -y \
         zip \
         exif \
         pcntl \
+        sockets \
+    && pecl install amqp \
+    && docker-php-ext-enable amqp \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Composer

@@ -44,6 +44,35 @@ return [
             'after_commit' => false,
         ],
 
+        'rabbitmq' => [
+            'driver' => 'rabbitmq',
+            'host' => [
+                [
+                    'host' => env('RABBITMQ_HOST', 'rabbit'),
+                    'port' => env('RABBITMQ_PORT', 5672),
+                    'vhost' => env('RABBITMQ_VHOST', '/'),
+                    'user' => env('RABBITMQ_LOGIN', 'guest'),
+                    'password' => env('RABBITMQ_PASSWORD', 'guest'),
+                ]
+                ],
+                'options' => [
+                    'exchange' => [
+                        'name' => 'patients_events',
+                        'type' => 'topic',
+                        'declare' => true,
+                        'durable' => true,
+                        'auto_delete' => false,
+                    ],
+                    'queue' => [
+                        'declare' => true,
+                        'durable' => true,
+                        'exclusive' => false,
+                        'auto_delete' => false,
+                        'bind' => false,
+                    ]
+                ]
+        ],
+
         'beanstalkd' => [
             'driver' => 'beanstalkd',
             'host' => env('BEANSTALKD_QUEUE_HOST', 'localhost'),

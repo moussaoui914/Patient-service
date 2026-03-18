@@ -32,7 +32,7 @@ class PatientController extends Controller
         ]);
         
         $patient = Patient::create($data);
-        $this->rabbitMQ->publish((array) $patient, 'patient.created');
+        $this->rabbitMQ->publish($patient->toArray(), 'patient.created');
         return $patient;
     }
 

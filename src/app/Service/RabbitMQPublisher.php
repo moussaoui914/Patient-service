@@ -11,7 +11,7 @@ class RabbitMQPublisher{
         $channel = $connection->getChannel();
 
         $message = new AMQPMessage(
-            json_encode($data),
+            json_encode(['patient_id' => $data['id'], 'description' => '']),
             ['delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT]
         );
 

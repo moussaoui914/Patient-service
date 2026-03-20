@@ -15,18 +15,18 @@ class AiController extends Controller
             $client = new Client([
                 'base_uri' => 'https://api.groq.com/openai/v1/',
                 'timeout' => 60,
-                'verify' => false, // DISABLE SSL FOR DEVELOPMENT
+                'verify' => true,
                 'http_errors' => false,
             ]);
-            
+
             // Prepare patient data
             $patientData = [
-                'nom' => $patient->nom,
-                'prenom' => $patient->prenom,
+                'nom' => $patient->firstname,
+                'prenom' => $patient->lastname,
                 'date_naissance' => $patient->date_naissance ?? 'Non spécifiée',
-                'diagnostic' => $patient->diagnostic ?? 'Non spécifié',
-                'traitements' => $patient->traitements ?? 'Non spécifiés',
-                'observations' => $patient->observations ?? 'Aucune observation',
+                'diagnostic' => 'Non spécifié',
+                'traitements' => 'Non spécifiés',
+                'observations' => 'Aucune observation',
             ];
             
             // Make API request to Groq
